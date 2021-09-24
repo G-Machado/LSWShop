@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Interaction Variables")]
     public Interactables closestInteractable;
     public bool interacting = false;
+    private bool interactDown = false;
 
     // Start is called before the first frame update
     void Start()
@@ -32,8 +33,14 @@ public class PlayerManager : MonoBehaviour
     {
         MovePlayer();
 
-        if (closestInteractable != null && Input.GetKeyDown(KeyCode.E))
+        if (closestInteractable != null && Input.GetKey(KeyCode.E) && !interactDown)
+        {
+            interactDown = true;
             triggerInteractable();
+        }
+
+        if (!Input.GetKey(KeyCode.E))
+            interactDown = false;
 
     }
 
