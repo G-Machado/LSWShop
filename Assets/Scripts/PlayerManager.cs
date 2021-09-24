@@ -32,7 +32,7 @@ public class PlayerManager : MonoBehaviour
     {
         MovePlayer();
 
-        if (closestInteractable != null && Input.GetAxis("Interact") > 0)
+        if (closestInteractable != null && Input.GetKeyDown(KeyCode.E))
             triggerInteractable();
 
     }
@@ -56,12 +56,18 @@ public class PlayerManager : MonoBehaviour
     private void triggerInteractable()
     {
         Debug.Log("Interacting with " + closestInteractable.name);
-        interacting = true;
+
+        closestInteractable.SetInteracting(!closestInteractable.interacting);
+
+        interacting = !closestInteractable.interacting;
     }
 
     public void disableInteraction()
     {
         Debug.Log("Disabling interaction");
+
+        closestInteractable.SetInteracting(false);
+
         interacting = false;
         closestInteractable = null;
     }

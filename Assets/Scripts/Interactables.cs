@@ -7,6 +7,7 @@ public class Interactables : MonoBehaviour
     [Header("Interaction Variables")]
     private Animator _anim;
     public bool selected = false;
+    public bool interacting = false;
 
     private void Start()
     {
@@ -26,10 +27,16 @@ public class Interactables : MonoBehaviour
 
                 if (myDistance <= interactableDistance)
                 {
-                    pManager.closestInteractable = this;
-                    selected = true;
+                    if (pManager.closestInteractable != this)
+                    {
+                        pManager.closestInteractable.SetInteracting(false);
+                        pManager.disableInteraction();
 
-                    _anim.SetBool("selected", true);
+                        pManager.closestInteractable = this;
+                        selected = true;
+
+                        _anim.SetBool("selected", true);
+                    }
                 }
                 else
                 {
@@ -55,11 +62,20 @@ public class Interactables : MonoBehaviour
 
             if (pManager.closestInteractable == this)
             {
+                SetInteracting(false);
+
                 pManager.disableInteraction();
                 selected = false;
 
                 _anim.SetBool("selected", false);
             }
         }
+    }
+
+    public void SetInteracting(bool mode)
+    {
+        interacting = mode;
+
+        _anim.SetBool("interacting", mode);
     }
 }
