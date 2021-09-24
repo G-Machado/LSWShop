@@ -20,6 +20,10 @@ public class PlayerManager : MonoBehaviour
     public bool interacting = false;
     private bool interactDown = false;
 
+    [Header("Inventory Variables")]
+    public bool inventoring = false;
+    private bool inventoryDown = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +45,19 @@ public class PlayerManager : MonoBehaviour
 
         if (!Input.GetKey(KeyCode.E))
             interactDown = false;
+
+        if(Input.GetKey(KeyCode.I) && !inventoryDown)
+        {
+            inventoryDown = true;
+
+            if (!inventoring)
+                triggerInventory();
+            else
+                disableInventory();
+        }
+
+        if (!Input.GetKey(KeyCode.I))
+            inventoryDown = false;
 
     }
 
@@ -77,5 +94,15 @@ public class PlayerManager : MonoBehaviour
 
         interacting = false;
         closestInteractable = null;
+    }
+
+    private void triggerInventory()
+    {
+        inventoring = true;
+    }
+
+    private void disableInventory()
+    {
+        inventoring = false;
     }
 }

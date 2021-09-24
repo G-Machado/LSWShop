@@ -451,6 +451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 411868636}
+  - component: {fileID: 411868637}
   - component: {fileID: 411868634}
   - component: {fileID: 411868635}
   - component: {fileID: 411868633}
@@ -529,6 +530,7 @@ MonoBehaviour:
   movDamp: 0.5
   closestInteractable: {fileID: 0}
   interacting: 0
+  inventoring: 0
 --- !u!4 &411868636
 Transform:
   m_ObjectHideFlags: 0
@@ -544,6 +546,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &411868637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411868631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5234d9c3c273fa742973e52dbd9428d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopPrefab: {fileID: 5421987044639401659, guid: 5c16b0adfaacb81478587f7a88e7b725, type: 3}
+  offset: {x: 0, y: 2.5, z: 0}
+  equipping: 0
+  canvas: {fileID: 1119367723}
+  iconHolders: []
+  itemTitle: {fileID: 0}
+  itemCost: {fileID: 0}
+  equipButton: {fileID: 0}
+  walletText: {fileID: 0}
+  inventoryItems:
+  - {fileID: 11400000, guid: 12f15f02d03c76c418ba8dfbefc32f80, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
