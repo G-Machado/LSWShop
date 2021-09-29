@@ -20,6 +20,7 @@ public class ShopManager : MonoBehaviour
 
     [Header("Item Variables")]
     public List<ScriptableItem> availableItems = new List<ScriptableItem>();
+    public ScriptableItem currentDisplayedItem;
 
     private GameObject currentShop;
 
@@ -42,6 +43,7 @@ public class ShopManager : MonoBehaviour
         {
             CloseShop();
         }
+
     }
 
     public void OpenShop()
@@ -84,6 +86,7 @@ public class ShopManager : MonoBehaviour
 
         buyButton = currentShop.GetComponentsInChildren<Button>()[4];
         buyButton.gameObject.SetActive(false);
+        buyButton.onClick.AddListener(() => BuyItem());
 
         SetupShop();
     }
@@ -107,6 +110,8 @@ public class ShopManager : MonoBehaviour
                 iconHolders[i].enabled = false;
             }
         }
+
+        walletText.text = WalletManager.Instance.wallet.Value.ToString();
     }
 
     public void CloseShop()
@@ -126,6 +131,8 @@ public class ShopManager : MonoBehaviour
 
     public void DisplayItem(ScriptableItem item)
     {
+        currentDisplayedItem = item;
+
         itemTitle.text = item.itemName;
         itemCost.text = "Cost: " + item.buyValue;
         itemCost.gameObject.SetActive(true);
@@ -133,4 +140,29 @@ public class ShopManager : MonoBehaviour
         walletText.gameObject.SetActive(true);
         buyButton.gameObject.SetActive(true);
     }
+
+    public void BuyItem()
+    {
+        if (currentDisplayedItem == null) return;
+
+        if(WalletManager.Instance.HasAmmount(currentDisplayedItem.buyValue))
+        {
+            WalletManager.Instance.ReduceAmmount(currentDisplayedItem.buyValue);
+           
+            InventoryManager.Instance.inventoryItems.Add(currentDisplayedItem);
+            InventoryManager.Instance.SetupDropInventory();
+
+            availableItems.Remove(currentDisplayedItem);
+            currentDisplayedItem = null;
+
+            /// Resets Shop selection
+            itemTitle.text = "No item selected - use mouse";
+            itemCost.gameObject.SetActive(false);
+            buyButton.gameObject.SetActive(false);
+            walletText.gameObject.SetActive(false);
+
+            SetupShop();
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - iconHolder
   - shop_icon
+  - frog_shop
   layers:
   - Default
   - TransparentFX

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f23b60626c7ac1d469276799c5420cc6, type: 3}
-  m_Name: Cape
+  m_Name: Scroll
   m_EditorClassIdentifier: 
-  shopIcon: {fileID: 21300000, guid: 6fc27c9d7fc2d9448af6851bf935e6d2, type: 3}
+  shopIcon: {fileID: 21300000, guid: db427fab3e94daf4caa704d9314a77a1, type: 3}
   playerWear: {fileID: 21300136, guid: 261212b977f594d5dbc48631a5c1295c, type: 3}
-  itemName: Cape
-  buyValue: 20
-  sellValue: 15
+  itemName: Scroll
+  buyValue: 5
+  sellValue: 5

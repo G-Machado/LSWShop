@@ -83,7 +83,7 @@ public class PlayerManager : MonoBehaviour
 
         closestInteractable.SetInteracting(!closestInteractable.interacting);
 
-        interacting = !closestInteractable.interacting;
+        interacting = closestInteractable.interacting;
     }
 
     public void disableInteraction()

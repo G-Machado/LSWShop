@@ -23,7 +23,7 @@ public class WalletManager : MonoBehaviour
     public bool HasAmmount(int value)
     {
         if (wallet.Value >= value)
-            return false;
+            return true;
 
         return false;
     }

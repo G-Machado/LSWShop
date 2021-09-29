@@ -566,9 +566,12 @@ MonoBehaviour:
   itemTitle: {fileID: 0}
   itemCost: {fileID: 0}
   equipButton: {fileID: 0}
+  dropButton: {fileID: 0}
+  sellButton: {fileID: 0}
   walletText: {fileID: 0}
   inventoryItems:
   - {fileID: 11400000, guid: 12f15f02d03c76c418ba8dfbefc32f80, type: 2}
+  currentDisplayedItem: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,9 +1822,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1119367723}
     - target: {fileID: 7203878597345896089, guid: 7a8a1af4c261a1b4981e8fe4ea6e2fb4, type: 3}
-      propertyPath: offset.y
-      value: 2.5
+      propertyPath: availableItems.Array.size
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7203878597345896089, guid: 7a8a1af4c261a1b4981e8fe4ea6e2fb4, type: 3}
+      propertyPath: availableItems.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: d1e01171b7fdf9b4493a35189c6075ad, type: 2}
     - target: {fileID: 7203878597345896093, guid: 7a8a1af4c261a1b4981e8fe4ea6e2fb4, type: 3}
       propertyPath: m_Name
       value: Frog Shop
