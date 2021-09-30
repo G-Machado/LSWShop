@@ -15,5 +15,9 @@ MonoBehaviour:
   shopIcon: {fileID: 21300000, guid: 5d9ba4e7d0964044ea54abe409d81dfd, type: 3}
   playerWear: {fileID: 21300000, guid: bdce2a9cb3d0242958c2593a3b8d8742, type: 3}
   itemName: Apple
+  wearableObject: {fileID: 7567388349378401606, guid: 8532fee2d02fbae4082c910dbe2c5a2c, type: 3}
+  equip: 0
+  equipped: 0
   buyValue: 10
   sellValue: 3
+  pickableInstance: {fileID: 4203676242839808070, guid: c5349dfc2aa3e844ca3e0f21280e454f, type: 3}

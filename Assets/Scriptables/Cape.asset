@@ -15,5 +15,9 @@ MonoBehaviour:
   shopIcon: {fileID: 21300000, guid: 6fc27c9d7fc2d9448af6851bf935e6d2, type: 3}
   playerWear: {fileID: 21300136, guid: 261212b977f594d5dbc48631a5c1295c, type: 3}
   itemName: Cape
+  wearableObject: {fileID: 7567388349378401606, guid: 98b4838dcadf6c1459eb5f0a95617830, type: 3}
+  equip: 1
+  equipped: 0
   buyValue: 20
   sellValue: 15
+  pickableInstance: {fileID: 4203676242839808070, guid: 149beda07e7fb1f4db2b36a4e40151db, type: 3}

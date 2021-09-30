@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour
 
     /// Graphics Variables
     private Animator _anim;
-    private SpriteRenderer _renderer;
+    public SpriteRenderer renderer;
 
     [Header("Movement Variables")]
     public float movSpeed = 1;
@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _anim = GetComponentInChildren<Animator>();
-        _renderer = GetComponentInChildren<SpriteRenderer>();
+        renderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -72,9 +72,13 @@ public class PlayerManager : MonoBehaviour
         _anim.SetFloat("movSpeed", _rb.velocity.magnitude);
 
         if (_rb.velocity.x > 0)
-            _renderer.flipX = false;
+        {
+            renderer.flipX = false;
+        }
         else
-            _renderer.flipX = true;
+        {
+            renderer.flipX = true;
+        }
     }
 
     private void triggerInteractable()

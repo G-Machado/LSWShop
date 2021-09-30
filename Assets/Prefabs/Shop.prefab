@@ -400,6 +400,7 @@ GameObject:
   - component: {fileID: 5421987043228432761}
   - component: {fileID: 5421987043228432758}
   - component: {fileID: 5421987043228432760}
+  - component: {fileID: 1857010341693258651}
   m_Layer: 5
   m_Name: IconHolder
   m_TagString: Untagged
@@ -509,6 +510,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &1857010341693258651
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5421987043228432756}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7534a0f33c4db424289ee345ac514668, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5421987043683409900
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,6 +541,7 @@ GameObject:
   - component: {fileID: 5421987043683409905}
   - component: {fileID: 5421987043683409902}
   - component: {fileID: 5421987043683409904}
+  - component: {fileID: 6548135524221160487}
   m_Layer: 5
   m_Name: IconHolder (1)
   m_TagString: Untagged
@@ -630,6 +651,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &6548135524221160487
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5421987043683409900}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7534a0f33c4db424289ee345ac514668, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5421987043798288484
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,6 +682,7 @@ GameObject:
   - component: {fileID: 5421987043798288489}
   - component: {fileID: 5421987043798288486}
   - component: {fileID: 5421987043798288488}
+  - component: {fileID: 3528474553537604196}
   m_Layer: 5
   m_Name: IconHolder (3)
   m_TagString: Untagged
@@ -751,6 +792,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &3528474553537604196
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5421987043798288484}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7534a0f33c4db424289ee345ac514668, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5421987044265994239
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,6 +823,7 @@ GameObject:
   - component: {fileID: 5421987044265994112}
   - component: {fileID: 5421987044265994113}
   - component: {fileID: 5421987044265994115}
+  - component: {fileID: 7227958653477418920}
   m_Layer: 5
   m_Name: IconHolder (2)
   m_TagString: Untagged
@@ -872,6 +933,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &7227958653477418920
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5421987044265994239}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7534a0f33c4db424289ee345ac514668, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5421987044363748274
 GameObject:
   m_ObjectHideFlags: 0

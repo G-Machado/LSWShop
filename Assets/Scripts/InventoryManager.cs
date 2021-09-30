@@ -14,7 +14,8 @@ public class InventoryManager : MonoBehaviour
 
     [Header("Shop Variables")]
     public GameObject shopPrefab;
-    public Vector3 offset;
+    public Vector3 normalOffset;
+    public Vector3 shopOffset;
     public bool equipping = false;
 
     [Header("UI Variables")]
@@ -31,6 +32,9 @@ public class InventoryManager : MonoBehaviour
     public List<ScriptableItem> inventoryItems = new List<ScriptableItem>();
     public ScriptableItem currentDisplayedItem;
 
+    [Header("Equip Variables")]
+    public EquipablesManager equipManager;
+
     private GameObject inventoryInstance;
 
     private PlayerManager player;
@@ -38,6 +42,13 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         player = GetComponent<PlayerManager>();
+        equipManager = GetComponent<EquipablesManager>();
+
+        for (int i = 0; i < inventoryItems.Count; i++)
+        {
+            inventoryItems[i].equipped = false;
+        }
+
         SpawnInventory();
     }
 
@@ -61,8 +72,12 @@ public class InventoryManager : MonoBehaviour
         else
             SetupDropInventory();
 
+        Vector3 finalOffset = normalOffset;
+        if (player.closestInteractable != null && player.closestInteractable.CompareTag("frog_shop") && player.interacting)
+            finalOffset = shopOffset;
+
         inventoryInstance.transform.position = Vector3.Lerp(inventoryInstance.transform.position, 
-            transform.position + offset, .3f);
+            transform.position + finalOffset, .2f);
     }
 
     public void OpenInventory()
@@ -74,7 +89,6 @@ public class InventoryManager : MonoBehaviour
 
         itemCost.gameObject.SetActive(false);
         equipButton.gameObject.SetActive(false);
-        walletText.gameObject.SetActive(false);
         dropButton.gameObject.SetActive(false);
         sellButton.gameObject.SetActive(false);
 
@@ -85,7 +99,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (inventoryInstance == null)
         {
-            GameObject shopClone = Instantiate(shopPrefab, transform.position + offset, transform.rotation, canvas);
+            GameObject shopClone = Instantiate(shopPrefab, transform.position + normalOffset, transform.rotation, canvas);
             inventoryInstance = shopClone;
         }
 
@@ -99,13 +113,11 @@ public class InventoryManager : MonoBehaviour
         }
 
         Button[] inventoryButtons = inventoryInstance.GetComponentsInChildren<Button>();
-        Debug.Log("inventory buttons lenght " + inventoryButtons.Length);
 
         itemTitle = inventoryInstance.GetComponentsInChildren<Text>()[0];
         itemCost = inventoryInstance.GetComponentsInChildren<Text>()[1];
         itemCost.gameObject.SetActive(false);
         walletText = inventoryInstance.GetComponentsInChildren<Text>()[2];
-        walletText.gameObject.SetActive(false);
 
         equipButton = inventoryButtons[4];
         equipButton.gameObject.SetActive(false);
@@ -153,8 +165,6 @@ public class InventoryManager : MonoBehaviour
 
     public void SetupSellInventory()
     {
-        Debug.Log("setting up sell inventory");
-
         for (int i = 0; i < iconHolders.Count; i++)
         {
             if (i < inventoryItems.Count)
@@ -202,19 +212,24 @@ public class InventoryManager : MonoBehaviour
         walletText.gameObject.SetActive(true);
         equipButton.gameObject.SetActive(true);
         dropButton.gameObject.SetActive(true);
+
+        if (currentDisplayedItem.equipped)
+            equipButton.transform.GetChild(0).GetComponent<Text>().text = "UNEQUIP";
+        else
+            equipButton.transform.GetChild(0).GetComponent<Text>().text = "EQUIP";
+
     }
 
     public void SellItem()
     {
         if (!currentDisplayedItem) return;
 
-        /// Resets Shop selection
-        itemTitle.text = "No item selected - use mouse";
-        itemCost.gameObject.SetActive(false);
-        equipButton.gameObject.SetActive(false);
-        dropButton.gameObject.SetActive(false);
-        sellButton.gameObject.SetActive(false);
-        walletText.gameObject.SetActive(false);
+       
+        if(currentDisplayedItem.equipped)
+        {
+            equipManager.UnEquipItem(currentDisplayedItem);
+            equipButton.transform.GetChild(0).GetComponent<Text>().text = "EQUIP";
+        }
 
         ShopManager shop = player.closestInteractable.gameObject.GetComponent<ShopManager>();
         shop.availableItems.Add(currentDisplayedItem);
@@ -225,18 +240,64 @@ public class InventoryManager : MonoBehaviour
         WalletManager.Instance.AddAmmount(currentDisplayedItem.sellValue);
         walletText.text = WalletManager.Instance.wallet.Value.ToString();
 
-        currentDisplayedItem = null;
+        /// Resets Shop selection
+        ResetSelection();
+        //Debug.Log("ITEM SOLD!!");
+    }
 
-        Debug.Log("ITEM SOLD!!");
+    public void ResetSelection()
+    {
+        itemTitle.text = "No item selected - use mouse";
+        itemCost.gameObject.SetActive(false);
+        equipButton.gameObject.SetActive(false);
+        dropButton.gameObject.SetActive(false);
+        sellButton.gameObject.SetActive(false);
+
+        currentDisplayedItem = null;
     }
 
     public void DropItem()
     {
+        if (currentDisplayedItem.equipped)
+            equipManager.UnEquipItem(currentDisplayedItem);
+
+        GameObject pickableClone = Instantiate(currentDisplayedItem.pickableInstance, transform.position, transform.rotation);
+
+        inventoryItems.Remove(currentDisplayedItem);
+        ResetSelection();
+
         Debug.Log("ITEM DROPPED!!");
     }
 
     public void EquipItem()
     {
-        Debug.Log("ITEM EQUIPPED!!");
+        if (!currentDisplayedItem.equipped)
+        {
+            equipManager.EquipItem(currentDisplayedItem);
+            equipButton.transform.GetChild(0).GetComponent<Text>().text = "UNEQUIP";
+
+            TriggerInventoryButton(currentDisplayedItem);
+        }
+        else
+        {
+            equipManager.UnEquipItem(currentDisplayedItem);
+            equipButton.transform.GetChild(0).GetComponent<Text>().text = "EQUIP";
+
+            TriggerInventoryButton(null);
+        }
+
+        //Debug.Log("ITEM EQUIPPED!!");
     }
+
+    private void TriggerInventoryButton(ScriptableItem item)
+    {
+        for (int i = 0; i < inventoryItems.Count; i++)
+        {
+            if (inventoryItems[i] == item && inventoryItems[i].equipped)
+                iconHolders[i].transform.parent.GetComponent<Animator>().SetBool("equipped", true);
+            else if(!inventoryItems[i].equipped)
+                iconHolders[i].transform.parent.GetComponent<Animator>().SetBool("equipped", false);
+        }
+    }
+
 }

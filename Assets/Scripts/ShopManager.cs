@@ -29,6 +29,12 @@ public class ShopManager : MonoBehaviour
     private void Start()
     {
         interactor = GetComponent<Interactables>();
+
+        for (int i = 0; i < availableItems.Count; i++)
+        {
+            availableItems[i].equipped = false;
+        }
+
         SpawnShop();
     }
 
@@ -44,6 +50,8 @@ public class ShopManager : MonoBehaviour
             CloseShop();
         }
 
+        if (interactor.interacting)
+            SetupShop();
     }
 
     public void OpenShop()
@@ -119,14 +127,6 @@ public class ShopManager : MonoBehaviour
         currentShop.GetComponent<Animator>().SetBool("activated", false);
 
         shopping = false;
-    }
-
-    private void DeleteShop()
-    {
-        if (shopping) return;
-
-        Destroy(currentShop);
-        currentShop = null;
     }
 
     public void DisplayItem(ScriptableItem item)

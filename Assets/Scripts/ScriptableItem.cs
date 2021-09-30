@@ -11,7 +11,22 @@ public class ScriptableItem : ScriptableObject
     public Sprite playerWear;
     public string itemName;
 
+    [Header("Equip Variables")]
+    public GameObject wearableObject;
+    [System.Serializable]
+    public enum equipType
+    {
+        HEAD,
+        BODY,
+        HAND
+    }
+    public equipType equip;
+    public bool equipped = false;
+
     [Header("Shop Variables")]
     public int buyValue;
     public int sellValue;
+
+    [Header("Pick Variables")]
+    public GameObject pickableInstance;
 }
