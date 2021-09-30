@@ -86,10 +86,12 @@ public class ShopManager : MonoBehaviour
             }
         }
 
-        itemTitle = currentShop.GetComponentsInChildren<Text>()[0];
-        itemCost = currentShop.GetComponentsInChildren<Text>()[1];
+        Text[] inventoryTexts = currentShop.GetComponentsInChildren<Text>();
+
+        itemTitle = inventoryTexts[4];
+        itemCost = inventoryTexts[5];
         itemCost.gameObject.SetActive(false);
-        walletText = currentShop.GetComponentsInChildren<Text>()[2];
+        walletText = inventoryTexts[7];
         walletText.gameObject.SetActive(false);
 
         buyButton = currentShop.GetComponentsInChildren<Button>()[4];
@@ -99,22 +101,58 @@ public class ShopManager : MonoBehaviour
         SetupShop();
     }
 
+    public bool HasItem(ScriptableItem item, List<ScriptableItem> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Equals(item))
+                return true;
+        }
+
+        return false;
+    }
+
     public void SetupShop()
     {
+        List<ScriptableItem> setupList = new List<ScriptableItem>();
+        for (int i = 0; i < availableItems.Count; i++)
+        {
+            setupList.Add(availableItems[i]);
+        }
+
         for (int i = 0; i < iconHolders.Count; i++)
         {
-            if (i < availableItems.Count)
+            if (i < availableItems.Count && setupList.Count > 0)
             {
-                int itemIndex = i;
+                int itemIndex = 0;
+                Text iconCounText = iconHolders[i].transform.parent.GetComponentInChildren<Text>();
+                int itemCount = 0;
+
+                ScriptableItem currentItem = setupList[itemIndex];
+
+                while (HasItem(currentItem, setupList))
+                {
+                    itemCount++;
+                    setupList.Remove(currentItem);
+                }
+
+                if (itemCount < 1)
+                    iconCounText.text = "";
+                else
+                    iconCounText.text = itemCount.ToString();
+
                 iconHolders[i].transform.parent.GetComponent<Button>().onClick.AddListener(() =>
-                    DisplayItem(availableItems[itemIndex])
+                    DisplayItem(currentItem)
                 );
 
                 iconHolders[i].enabled = true;
-                iconHolders[i].sprite = availableItems[i].shopIcon;
+                iconHolders[i].sprite = currentItem.shopIcon;
             }
             else
             {
+                Text iconCounText = iconHolders[i].transform.parent.GetComponentInChildren<Text>();
+                iconCounText.text = "";
+
                 iconHolders[i].enabled = false;
             }
         }

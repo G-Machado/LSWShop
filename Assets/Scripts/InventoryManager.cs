@@ -113,11 +113,12 @@ public class InventoryManager : MonoBehaviour
         }
 
         Button[] inventoryButtons = inventoryInstance.GetComponentsInChildren<Button>();
+        Text[] inventoryTexts = inventoryInstance.GetComponentsInChildren<Text>();
 
-        itemTitle = inventoryInstance.GetComponentsInChildren<Text>()[0];
-        itemCost = inventoryInstance.GetComponentsInChildren<Text>()[1];
+        itemTitle = inventoryTexts[4];
+        itemCost = inventoryTexts[5];
         itemCost.gameObject.SetActive(false);
-        walletText = inventoryInstance.GetComponentsInChildren<Text>()[2];
+        walletText = inventoryTexts[7];
 
         equipButton = inventoryButtons[4];
         equipButton.gameObject.SetActive(false);
@@ -136,20 +137,45 @@ public class InventoryManager : MonoBehaviour
 
     public void SetupDropInventory()
     {
+        List<ScriptableItem> setupList = new List<ScriptableItem>();
+        for (int i = 0; i < inventoryItems.Count; i++)
+        {
+            setupList.Add(inventoryItems[i]);
+        }
+
         for (int i = 0; i < iconHolders.Count; i++)
         {
-            if (i < inventoryItems.Count)
+            if (i < inventoryItems.Count && setupList.Count > 0)
             {
-                int itemIndex = i;
+                int itemIndex = 0;
+                Text iconCounText = iconHolders[i].transform.parent.GetComponentInChildren<Text>();
+                int itemCount = 0;
+
+                ScriptableItem currentItem = setupList[itemIndex];
+
+                while (HasItem(currentItem, setupList))
+                {
+                    itemCount++;
+                    setupList.Remove(currentItem);
+                }
+
+                if (itemCount < 1)
+                    iconCounText.text = "";
+                else
+                    iconCounText.text = itemCount.ToString();
+
                 iconHolders[i].transform.parent.GetComponent<Button>().onClick.AddListener(() =>
-                    DisplayItem(inventoryItems[itemIndex])
+                    DisplayItem(currentItem)
                 );
 
                 iconHolders[i].enabled = true;
-                iconHolders[i].sprite = inventoryItems[i].shopIcon;
+                iconHolders[i].sprite = currentItem.shopIcon;
             }
             else
             {
+                Text iconCounText = iconHolders[i].transform.parent.GetComponentInChildren<Text>();
+                iconCounText.text = "";
+
                 iconHolders[i].enabled = false;
             }
         }
@@ -163,22 +189,58 @@ public class InventoryManager : MonoBehaviour
         walletText.text = WalletManager.Instance.wallet.Value.ToString();
     }
 
+    public bool HasItem(ScriptableItem item, List<ScriptableItem> list)
+    {
+        for (int i = 0; i <list.Count; i++)
+        {
+            if (list[i].Equals(item))
+                return true;
+        }
+
+        return false;
+    }
+
     public void SetupSellInventory()
     {
+        List<ScriptableItem> setupList = new List<ScriptableItem>();
+        for (int i = 0; i < inventoryItems.Count; i++)
+        {
+            setupList.Add(inventoryItems[i]);
+        }
+
         for (int i = 0; i < iconHolders.Count; i++)
         {
-            if (i < inventoryItems.Count)
+            if (i < inventoryItems.Count && setupList.Count > 0)
             {
-                int itemIndex = i;
+                int itemIndex = 0;
+                Text iconCounText = iconHolders[i].transform.parent.GetComponentInChildren<Text>();
+                int itemCount = 0;
+
+                ScriptableItem currentItem = setupList[itemIndex];
+
+                while (HasItem(currentItem, setupList))
+                {
+                    itemCount++;
+                    setupList.Remove(currentItem);
+                }
+
+                if (itemCount < 1)
+                    iconCounText.text = "";
+                else
+                    iconCounText.text = itemCount.ToString();
+
                 iconHolders[i].transform.parent.GetComponent<Button>().onClick.AddListener(() =>
-                    DisplayItem(inventoryItems[itemIndex])
+                    DisplayItem(currentItem)
                 );
 
                 iconHolders[i].enabled = true;
-                iconHolders[i].sprite = inventoryItems[i].shopIcon;
+                iconHolders[i].sprite = currentItem.shopIcon;
             }
             else
             {
+                Text iconCounText = iconHolders[i].transform.parent.GetComponentInChildren<Text>();
+                iconCounText.text = "";
+
                 iconHolders[i].enabled = false;
             }
         }
