@@ -22,7 +22,7 @@ public class ShopManager : MonoBehaviour
     public List<ScriptableItem> availableItems = new List<ScriptableItem>();
     public ScriptableItem currentDisplayedItem;
 
-    private GameObject currentShop;
+    public GameObject currentShop;
 
     private Interactables interactor;
 
@@ -52,6 +52,9 @@ public class ShopManager : MonoBehaviour
 
         if (interactor.interacting)
             SetupShop();
+
+        currentShop.transform.position = Vector3.Lerp(currentShop.transform.position,
+            transform.position + offset, .2f);
     }
 
     public void OpenShop()
@@ -71,11 +74,11 @@ public class ShopManager : MonoBehaviour
 
     public void SpawnShop()
     {
-        if (currentShop == null)
-        {
-            GameObject shopClone = Instantiate(shopPrefab, transform.position + offset, transform.rotation, canvas);
-            currentShop = shopClone;
-        }
+        Vector3 spawnPos = transform.position + offset;
+        spawnPos.y += canvas.transform.position.y;
+
+        GameObject shopClone = Instantiate(shopPrefab, spawnPos, transform.rotation, canvas);
+        currentShop = shopClone;
 
         Image[] shopIcons = currentShop.GetComponentsInChildren<Image>();
         for (int i = 0; i < shopIcons.Length; i++)
